@@ -9,7 +9,32 @@ warnings.filterwarnings("ignore")
 def main(sheet, col_start, tfms, out_dir = './', output_orig = True,
         encode=True, cols_2_invert = None, gds_axis = 0, header = True
         ):
-    '''
+    '''This script will take a spreadsheet with binarized GDS data and use them
+    to calculate factor scores, based on the methods, weights and normative
+    data described in Vogel et al, 2017 Neurology. The output will contain
+    scores for the following GDS factors: "SCD", "Dysphoria", "Apathy",
+    "Anxiety", "Total Affective Score", the latter being the combination of all
+    scores except SCD, which is non-affective.
+
+    The script will recognize most types of spreadsheets (excel, csv, text,
+    etc). Script expects data to be binarized as 1s and 0s. If 1 = "depressed"
+    answer, nothing further needs to be done. If 1=Yes and 2=No, the script can
+    transform the data so that 1="depressed" answer. The user need only change
+    the variable icols in the script so that the GDS questions that need to be
+    "inverted" are supplied. Then make sure -encode is set to True
+
+    Please note that the script assumes that the GDS questions are represented
+    by 30 consecutive columns (or rows) of 1s and 0s. If this structure is not
+    represented in the spreadsheet, results will be unreliable. Other columns
+    may be present, as long as the 30 binary GDS columns are present and
+    consecutive.
+
+    Also note that missing data should be represented with blank cells or NaNs,
+    and will be removed.
+
+    Finally, the simpler a spreadsheet is, the more reliable the performance
+    will be. For absolute best results, have rows as subjects and columns as
+    variables, and do not use any multi-indexing. 
     sheet -> a string path to the spreadsheet containing the GDS data.
 
     col_start -> the column number where GDS question 1 is. Please note that,
