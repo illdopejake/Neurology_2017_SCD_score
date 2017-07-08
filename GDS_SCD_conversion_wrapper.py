@@ -1,7 +1,7 @@
 import os
 import sys
 import argparse
-import gds_scd_conversion as scd 
+import gds_scd_conversion as scd
 
 # Data must be set so that all "depressed" answers are equal to 1.
 # If this is not already the case, the script will do it for you.
@@ -26,8 +26,8 @@ if __name__ == '__main__':
     etc). Script expects data to be binarized as 1s and 0s. If 1 = "depressed"
     answer, nothing further needs to be done. If 1=Yes and 2=No, the script can
     transform the data so that 1="depressed" answer. The user need only
-    open the wrapper script (this one) and change the variable icols so that the 
-    GDS questions that need to be "inverted" are supplied. Then, make sure the 
+    open the wrapper script (this one) and change the variable icols so that the
+    GDS questions that need to be "inverted" are supplied. Then, make sure the
     encode option is set to "True"
 
     Please note that the script assumes that the GDS questions are represented
@@ -41,12 +41,12 @@ if __name__ == '__main__':
 
     Finally, the simpler a spreadsheet is, the more reliable the performance
     will be. For absolute best results, have rows as subjects and columns as
-    variables, and do not use any multi-indexing. 
+    variables, and do not use any multi-indexing.
     '''
 
-
+    print('parsing arguments')
     parser = argparse.ArgumentParser(
-        description='converts GDS data into factor scores (SCD, etc.)')
+        description='converts GDS data into factor scores (SCD, etc.)\n usage: python GDS_SCD_conversion_wrapper [sheet] [col_start] -[options]')
 
     ###INPUTS###
 
@@ -56,42 +56,43 @@ if __name__ == '__main__':
     parser.add_argument('col_start', type=int, nargs=1,
         help = 'column # of first GDS question. Note: 0 = col1, 1 = col2, etc')
 
-    
- 	###OPTIONS###
 
- 	parser.add_argument('-out', type=str, default='./',
+    ###OPTIONS###
+
+    parser.add_argument('-out', type=str, default='./',
         help = 'path to desired output directory. Default = current directory')
 
-    parser.add_argument('-output_orig', type=bool, 
-    	default=True, choices=[True, False],
+    parser.add_argument('-output_orig', type=bool,
+        default=True, choices=[True, False],
         help='True=append scores to original spreadsheet, False=make new csv')
 
-    parser.add_argument('-tfms', type=str, 
-    	default=os.path.join(os.get_cwd(),'values_for_transformations.csv'),
+    parser.add_argument('-tfms', type=str,
+        default=os.path.join(os.getcwd(),'values_for_transformations.csv'),
         help='path to spreadsheet with means, sds and factor weights')
 
-     parser.add_argument('-encode', type=bool, 
-     	default=False, choices = [True, False],
+    parser.add_argument('-encode', type=bool,
+        default=False, choices = [True, False],
         help = 'If True, invert columns supplied in the icols variable')
 
-    parser.add_argument('-axis', type=int, 
-    	default=0, choices = [0, 1]
+    parser.add_argument('-axis', type=int,
+        default=0, choices = [0, 1],
         help='1 if GDS questions are rows. 0 if GDS questions are columns')
 
-    parser.add_argument('-header', type=bool, 
-    	default=True, choices = [True, False]
+    parser.add_argument('-header', type=bool,
+        default=True, choices = [True, False],
         help='If rows/columns have labels, set to True. If not, set to False.')
 
     if len(sys.argv) < 2:
         parser.print_help()
         print(help(scd.main))
     else:
+        print('initializing')
         args=parser.parse_args()
 
         scd.main(sheet = args.sheet[0], col_start = args.col_start[0],
-        		out_dir = args.out, output_orig = args.output_orig, 
-        		tfms = args.tfms, encode = args.encode, cols_2_invert = icols, 
-        		gds_axis = args.axis, header = args.header
-        		)
+                out_dir = args.out, output_orig = args.output_orig,
+                tfms = args.tfms, encode = args.encode, cols_2_invert = icols,
+                gds_axis = args.axis, header = args.header
+                )
 
 

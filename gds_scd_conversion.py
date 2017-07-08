@@ -49,6 +49,9 @@ def main(sheet, col_start, out_dir = './', output_orig = True, tfms = tfms,
 
     header -> If columns/rows have labels, leave this as True. If no column
     labels are present, set to False
+
+    to display similar information in your command line:
+    GDS_SCD_conversion_wrapper --help
     '''
 
     # prepare data
