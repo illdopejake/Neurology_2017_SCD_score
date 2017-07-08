@@ -1,25 +1,13 @@
 import os
 import pandas
 import numpy as np
+import warnings
+
+warnings.filterwarnings("ignore")
 
 
-tfms = '/Users/jakevogel/Dropbox/Work/SCC_paper/Revisions/SCD Score/values_for_transformations.csv'
-
-
-# Data must be set so that all "depressed" answers are equal to 1.
-# If this is not already the case, the script will do it for you.
-# However, you must specify below which columns to invert.
-
-# Please note that there are different GDS versions. The default 
-# for our version may not be applicable to your version.
-
-# These are the question numbers to invert.
-icols = [1,5,7,10,15,19,21,27,29,30]
-
-
-
-def main(sheet, col_start, out_dir = './', output_orig = True, tfms = tfms,
-        encode=True, cols_2_invert = icols, gds_axis = 0, header = True
+def main(sheet, col_start, tfms, out_dir = './', output_orig = True,
+        encode=True, cols_2_invert = None, gds_axis = 0, header = True
         ):
     '''
     sheet -> a string path to the spreadsheet containing the GDS data.
@@ -157,7 +145,7 @@ def prep_spreadsheet(df, col_start, gds_axis):
         df = df.transpose()
 
     # Isolate GDS columns
-    resps = df[df.columns[col_start: col_start+30]]
+    resps = df.loc[:][df.columns[col_start: col_start+30]]
 
     # Remove NaNs
     print('warning: construction of factor scores requires',
