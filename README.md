@@ -1,5 +1,5 @@
 # Neurology_2017_SCD_score
-Command-line executable script to convert itemized GDS responses into SCD and affective variables. You feed it your spreadsheet with itemized GDS scores, it will convert those into factor scores as described in the [yet to be published] Vogel et al. 2017 Neurology. [Link coming soon]
+Command-line executable script to convert itemized GDS responses into SCD and affective variables. You feed it your spreadsheet with itemized GDS scores, it will convert those into factor scores as described in Vogel et al. 2017 Neurology. http://bit.ly/2hTGlVc
 
 # Dependencies
 Python
@@ -23,10 +23,18 @@ Anaconda: https://www.continuum.io/blog/developer-blog/python-packages-and-envir
 
 3. Unless you used Anaconda, python does not necessarily come with the pandas library (at least it didn't used to).
 If you don't have pandas, its simple to install. 
-Open a command window
-If using Python, type: pip install pandas
-Press enter. That's it.
+
+-- Open a command window
+
+-- If using Python, type: pip install pandas
+
+-- Press enter. 
+
+That's it.
+
 Note, if you're working on a cluster, you may have to instead type: pip install --user pandas
+
+
 anaconda should already have python, but if not, type: conda install pandas
 
 # Accessing the script
@@ -39,10 +47,13 @@ If not, you can download it manually off of the site and save it onto your compu
 
 # Using the script
 Open a command line. Navigate to the directory where you saved this repository.
+
 GDS_SCD_conversion_wrapper.py is the actual command-line function you will use to execute the script.
 
 To understand how the script works, just type: python GDS_SCD_conversion_wrapper.py
+
 If you want reliable results, please make sure you read and understand the documentation this provides.
+
 For a short prompt to remind you of the options, just type python GDS_SCD_conversion_wrapper.py --help
 
 Example usage:
@@ -50,6 +61,7 @@ Example usage:
 python GDS_SCD_conversion_wrapper.py /User/jakevogel/GDS.xlsx 3 -out ../tmp/ -header True -encode True
 
 This will open spreadsheet /User/jakevogel/GDS.xlsx, and will look for the first GDS question at the 4th column.
+
 This will also tell the script to output the scores to ../tmp, that the spreadsheet does contain column names, and that I want the
 script to automatically invert several GDS questions (because we want the depressed answers =1).
 
